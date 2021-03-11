@@ -24,7 +24,7 @@ public abstract class AplicantReader {
 		int varsta = scanner.nextInt();
 		int punctaj = scanner.nextInt();
 		int nr = scanner.nextInt();
-		String[] vect = new String[5];
+		String[] vect = new String[nr];
 		for (int i = 0; i < nr; i++)
 			vect[i] = scanner.next();
 		aplicant.setNume(nume);
@@ -32,8 +32,7 @@ public abstract class AplicantReader {
 		aplicant.setPunctaj(punctaj);
 		aplicant.setVarsta(varsta);
 		aplicant.setDenumiriProiecte(nr,vect);
-		
-		
+			
 	}
 
 }
