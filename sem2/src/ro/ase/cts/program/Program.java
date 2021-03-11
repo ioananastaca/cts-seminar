@@ -12,6 +12,7 @@ public class Program {
 	{
 		return reader.readAplicanti();
 	}
+	
 	public static void main(String[] args) {
 		List<Aplicant> listaAngajati;
 		try {
