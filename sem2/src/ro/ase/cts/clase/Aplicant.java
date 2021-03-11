@@ -24,9 +24,11 @@ public abstract class Aplicant{
 	public int getVarsta() {
 		return varsta;
 	}
+	
 	public void setVarsta(int varsta) {
 		this.varsta = varsta;
 	}
+	
 	public void statut(){
 		if(punctaj>80)
 			System.out.println("Aplicantul "+nume+" "+prenume+" a fost acceptat.");
@@ -36,13 +38,11 @@ public abstract class Aplicant{
 	public int getPunctaj() {
 		return punctaj;
 	}
+	
 	public void setPunctaj(int punctaj) {
 		this.punctaj = punctaj;
 	}
-	
-	
 
-	
 	public Aplicant() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -69,6 +69,9 @@ public abstract class Aplicant{
 		return denumireProiect;
 	}
 
+	public abstract int getFinantatare();
+		
+		
 	
 
 }
