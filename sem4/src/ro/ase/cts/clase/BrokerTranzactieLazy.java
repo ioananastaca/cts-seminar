@@ -36,7 +36,7 @@ public class BrokerTranzactieLazy {
 		this.nrTranzactiiEfectuate = nrTranzactiiEfectuate;
 	}
 	
-	public static BrokerTranzactieLazy getInstance(String nume, int vechime, int nrTranzactii) {
+	public static synchronized BrokerTranzactieLazy getInstance(String nume, int vechime, int nrTranzactii) {
 		if(brokerTranzactieLazy==null)
 		{ //apelam constr doar daca este null
 			brokerTranzactieLazy=new BrokerTranzactieLazy(nume,vechime,nrTranzactii);
