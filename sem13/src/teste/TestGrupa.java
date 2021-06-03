@@ -1,29 +1,23 @@
 package teste;
 
 import static org.junit.Assert.*;
+import org.junit.experimental.categories.Categories;
+import org.junit.experimental.categories.Categories.ExcludeCategory;
+import org.junit.experimental.categories.Categories.IncludeCategory;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import clase.Grupa;
 import clase.Student;
+import ro.ase.cts.categorii.GetPromovabilitateCategory;
+import ro.ase.cts.categorii.TesteNormaleCategory;
+import ro.ase.cts.categorii.TesteUrgenteCategory;
 
 public class TestGrupa {
-
-	private Grupa grupa;
-	
-	@Before
-	public void setUp() {
-		grupa=new Grupa(1083);
-		for(int i =0; i<35; i++) {
-			Student student = new Student("Ioana");
-			for(int j =0; j<7; j++) 
-			{	
-			student.adaugaNota(9);
-			}
-			grupa.adaugaStudent(student);
-		}
-	}
 	
 	@Test
 	public void testConstructorCorrect() {
@@ -49,7 +43,6 @@ public class TestGrupa {
 		Grupa grupa=new Grupa(988);
 		
 	}
-	
 	@Test(expected=IllegalArgumentException.class)
 	public void testConstructorShouldThrowExceptionInAfaraLimiteiSuperioare()
 	{
@@ -57,12 +50,20 @@ public class TestGrupa {
 		
 	}
 	@Test(timeout=500)
+	@Category(TesteUrgenteCategory.class)
 	public void testConstructorPerformanta()
 	{
 		Grupa grupa=new Grupa(1082);
 	}
-
 	@Test
+	@Category(TesteNormaleCategory.class)
+	public void testConstructorExistentaListaStudenti()
+	{
+		Grupa grupa=new Grupa(1083);
+		assertNotNull(grupa.getStudenti());
+	}
+	@Test
+	@Category({GetPromovabilitateCategory.class,TesteNormaleCategory.class})
 	public void testPromovabilitate() {
 		Grupa grupa = new Grupa(1083);
 		for(int i=0; i<3; i++) {
@@ -78,85 +79,42 @@ public class TestGrupa {
 		float promovabilitate = 0.7f;
 		assertEquals(promovabilitate, grupa.getPromovabilitate(), 0.1);
 	}
-	
+
 	@Test
-	public void testPromovabilitateLowerBoundary() {
-		Grupa grupa = new Grupa(1083);
-		for(int i=0; i<3; i++) {
-			Student student = new Student("Andreea");
+	@Category(GetPromovabilitateCategory.class)
+	public void testPromovabilitateLowerBoundery()
+	{
+		Grupa grupa=new Grupa(1083);
+		for(int i=0;i<5;i++)
+		{
+			Student student=new Student("raluca");
 			student.adaugaNota(3);
 			grupa.adaugaStudent(student);
 		}
-		float promovabilitate = 0f;
-		assertEquals(promovabilitate, grupa.getPromovabilitate(), 0.1);
+		float promovabilitate=0f;
+		assertEquals(promovabilitate, grupa.getPromovabilitate(),0.1);
 	}
-	
 	@Test
-	public void testPromovabilitateUpperBoundary() {
-		Grupa grupa = new Grupa(1083);
-		for(int i =0; i<7; i++) {
-			Student student = new Student("Ioana");
-			student.adaugaNota(9);
+	@Category(GetPromovabilitateCategory.class)
+	public void testPromovabilitateUpperBoundery()
+	{
+		Grupa grupa=new Grupa(1083);
+		for(int i=0;i<5;i++)
+		{
+			Student student=new Student("raluca");
+			student.adaugaNota(7);
 			grupa.adaugaStudent(student);
 		}
-		float promovabilitate = 1f;
-		assertEquals(promovabilitate, grupa.getPromovabilitate(), 0.1);
+		float promovabilitate=1f;
+		assertEquals(promovabilitate, grupa.getPromovabilitate(),0.1);
 	}
-	
-	
-	
-	@Test(expected=IndexOutOfBoundsException.class )
-	public void testPromovabilitateErrorCondition() {
-		Grupa g=new Grupa(1083);
-		g.getPromovabilitate();
+	@Test(expected=IndexOutOfBoundsException.class)
+	@Category(GetPromovabilitateCategory.class)
+	public void testPromovabilitateBoundsException()
+	{
+		Grupa grupa=new Grupa(1083);
+		grupa.getPromovabilitate();
 	}
-	
-	
-	@Test(timeout=500)
-	public void testPromovabilitatePerformace() {
-		Grupa g=new Grupa(1083);
-		for(int i =0; i<35; i++) {
-			Student student = new Student("Ioana");
-			for(int j =0; j<7; j++) {
-				
-			student.adaugaNota(9);
-			}
-			
-			g.adaugaStudent(student);
-		}
-		g.getPromovabilitate();
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
